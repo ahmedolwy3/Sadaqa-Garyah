@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="إذاعة القرآن الكريم من القاهرة - بث مباشر على مدار الساعة">
+    <meta name="keywords" content="القرآن الكريم, إذاعة القرآن, القاهرة, بث مباشر, استماع القرآن">
+    <meta name="author" content="د/ أحمد علوي">
+    <title>إذاعة القرآن الكريم من القاهرة</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Google Fonts - Amiri for Quranic Content -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Styles */
+        :root {
+            --primary-green: #1a5f4a;
+            --light-green: #2d8a6e;
+            --gold: #c9a227;
+            --cream: #f5f0e6;
+            --dark-text: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+        
+        /* Islamic Geometric Pattern Background */
+        .islamic-pattern {
+            background-color: var(--cream);
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a5f4a' fill-opacity='0.05'%3E%3Cpath d='M40 0l40 40-40 40L0 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Gradient Overlay */
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(26, 95, 74, 0.95) 0%, rgba(45, 138, 110, 0.9) 100%);
+        }
+        
+        /* Audio Player Custom Styles */
+        .audio-player {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: 0 10px 40px rgba(26, 95, 74, 0.2);
+        }
+        
+        /* Pulse Animation for Live Indicator */
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .pulse-live {
+            animation: pulse-live 2s ease-in-out infinite;
+        }
+        
+        /* Sound Wave Animation */
+        @keyframes soundwave {
+            0%, 100% { height: 8px; }
+            50% { height: 24px; }
+        }
+        
+        .soundwave-bar {
+            animation: soundwave 0.8s ease-in-out infinite;
+        }
+        
+        .soundwave-bar:nth-child(1) { animation-delay: 0s; }
+        .soundwave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .soundwave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .soundwave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .soundwave-bar:nth-child(5) { animation-delay: 0.4s; }
+        
+        /* Decorative Border */
+        .decorative-border {
+            border: 2px solid var(--gold);
+            position: relative;
+        }
+        
+        .decorative-border::before,
+        .decorative-border::after {
+            content: '❁';
+            position: absolute;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .decorative-border::before {
+            top: -0.75rem;
+            right: 50%;
+            transform: translateX(50%);
+            background: var(--cream);
+            padding: 0 0.5rem;
+        }
+        
+        /* Volume Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to left, #1a5f4a, #2d8a6e);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #c9a227;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #c9a227;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        /* Smooth Transitions */
+        .transition-smooth {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="islamic-pattern min-h-screen">
+    
+    <!-- Main Container -->
+    <div class="min-h-screen flex flex-col">
+        
+        <!-- Header Section -->
+        <header class="gradient-overlay text-white py-8 md:py-12 shadow-xl">
+            <div class="container mx-auto px-4">
+                <!-- Bismillah -->
+                <p class="font-amiri text-xl md:text-2xl text-center mb-6 text-amber-200 opacity-90">
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </p>
+                
+                <!-- Main Title -->
+                <h1 class="font-amiri text-3xl md:text-5xl lg:text-6xl font-bold text-center leading-relaxed">
+                    إذاعة القرآن الكريم من القاهرة
+                </h1>
+                
+                <!-- Subtitle -->
+                <p class="text-center mt-4 text-lg md:text-xl opacity-90 font-light">
+                    بث مباشر على مدار الساعة
+                </p>
+                
+                <!-- Decorative Element -->
+                <div class="flex justify-center mt-6">
+                    <div class="flex items-center gap-3">
+                        <span class="h-px w-12 md:w-24 bg-amber-300/50"></span>
+                        <span class="text-amber-300 text-2xl">۞</span>
+                        <span class="h-px w-12 md:w-24 bg-amber-300/50"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+            
+            <!-- Audio Player Card -->
+            <div class="max-w-2xl mx-auto">
+                <div class="audio-player rounded-3xl p-6 md:p-10 decorative-border">
+                    
+                    <!-- Live Indicator -->
+                    <div class="flex justify-center mb-8">
+                        <div class="flex items-center gap-3 bg-red-50 px-5 py-2 rounded-full">
+                            <span class="w-3 h-3 bg-red-500 rounded-full pulse-live"></span>
+                            <span class="text-red-600 font-semibold text-sm">بث مباشر</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Sound Wave Visualization -->
+                    <div id="soundWave" class="flex justify-center items-end gap-1 h-8 mb-8 opacity-0 transition-opacity duration-500">
+                        <div class="soundwave-bar w-1 bg-emerald-600 rounded-full"></div>
+                        <div class="soundwave-bar w-1 bg-emerald-500 rounded-full"></div>
+                        <div class="soundwave-bar w-1 bg-emerald-600 rounded-full"></div>
+                        <div class="soundwave-bar w-1 bg-emerald-500 rounded-full"></div>
+                        <div class="soundwave-bar w-1 bg-emerald-600 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Quran Icon -->
+                    <div class="flex justify-center mb-6">
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-emerald-700 to-emerald-900 flex items-center justify-center shadow-lg">
+                            <svg class="w-12 h-12 md:w-16 md:h-16 text-amber-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6zm0 2h12v16H6V4zm2 2v2h8V6H8zm0 4v2h8v-2H8zm0 4v2h5v-2H8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Status Text -->
+                    <p id="statusText" class="text-center text-gray-600 mb-8 text-lg">
+                        اضغط للاستماع إلى كلام الله
+                    </p>
+                    
+                    <!-- Play/Pause Button -->
+                    <div class="flex justify-center mb-8">
+                        <button 
+                            id="playBtn" 
+                            onclick="togglePlay()"
+                            class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-800 text-white flex items-center justify-center shadow-xl hover:shadow-2xl transition-smooth hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300"
+                            aria-label="تشغيل/إيقاف"
+                        >
+                            <!-- Play Icon -->
+                            <svg id="playIcon" class="w-10 h-10 md:w-12 md:h-12 mr-[-4px]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <!-- Pause Icon (Hidden by default) -->
+                            <svg id="pauseIcon" class="w-10 h-10 md:w-12 md:h-12 hidden" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="flex items-center justify-center gap-4 max-w-xs mx-auto">
+                        <button onclick="toggleMute()" class="text-emerald-700 hover:text-emerald-900 transition-colors" aria-label="كتم الصوت">
+                            <svg id="volumeIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                            <svg id="muteIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                            </svg>
+                        </button>
+                        <input 
+                            type="range" 
+                            id="volumeSlider" 
+                            min="0" 
+                            max="100" 
+                            value="80" 
+                            class="w-full cursor-pointer"
+                            onchange="changeVolume(this.value)"
+                            oninput="changeVolume(this.value)"
+                            aria-label="مستوى الصوت"
+                        >
+                        <span id="volumeValue" class="text-emerald-700 font-semibold text-sm w-10">80%</span>
+                    </div>
+                    
+                    <!-- Hidden Audio Element -->
+                    <audio 
+                        id="audioPlayer" 
+                        preload="none"
+                        src="https://n13.radiojar.com/8s5u5tpdtwzuv?rj-ttl=5&rj-tok=AAABk6shqpUAmERj_dQaKuFSRw"
+                    ></audio>
+                    
+                </div>
+                
+                <!-- Dua Card -->
+                <div class="mt-10 bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-amber-200/50">
+                    <div class="flex items-start gap-4">
+                        <span class="text-amber-500 text-3xl mt-1">🤲</span>
+                        <p class="font-amiri text-lg md:text-xl text-gray-700 leading-loose">
+                            اللهم اجعل هذا العمل خالصًا لوجهك الكريم، واجعله مما ينتفع به المسلمون، ويكون من صدقاتي الجارية.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </main>
+        
+        <!-- Footer -->
+        <footer class="bg-emerald-900 text-white py-8">
+            <div class="container mx-auto px-4">
+                
+                <!-- Quranic Verse -->
+                <div class="text-center mb-6">
+                    <p class="font-amiri text-xl md:text-2xl text-amber-200 leading-relaxed">
+                        ﴿ إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾
+                    </p>
+                    <p class="text-sm text-emerald-300 mt-2">سورة الإسراء - الآية 9</p>
+                </div>
+                
+                <hr class="border-emerald-700 my-6">
+                
+                <!-- Developer Credit -->
+                <div class="text-center">
+                    <p class="text-emerald-200 text-sm md:text-base mb-4">
+                        تم تصميم وبناء هذا الموقع بواسطة
+                    </p>
+                    
+                    <!-- Developer Photo -->
+                    <div class="flex justify-center mb-4">
+                        <div class="relative">
+                            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-amber-400/70 shadow-lg shadow-emerald-900/50">
+                                <img 
+                                    src="https://i.postimg.cc/LsFR2pFz/real.jpg" 
+                                    alt="د/ أحمد علوي" 
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                >
+                            </div>
+                            <!-- Decorative Ring -->
+                            <div class="absolute inset-0 rounded-full border-2 border-amber-300/30 scale-110"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-amber-300 font-semibold text-lg">
+                        د/ أحمد علوي
+                    </p>
+                    <p class="text-emerald-300 text-sm mt-1">
+                        (صيدلي ومبرمج)
+                    </p>
+                </div>
+                
+                <!-- Sadaqa Jariya -->
+                <div class="text-center mt-6">
+                    <div class="bg-emerald-800/50 rounded-xl py-4 px-6 inline-block">
+                        <p class="text-amber-200 text-base md:text-lg font-semibold mb-2">
+                            🕊️ صدقة جارية 🕊️
+                        </p>
+                        <p class="text-emerald-100 text-sm md:text-base leading-relaxed">
+                            عني وعن أبي وعن خالي
+                        </p>
+                        <p class="text-amber-300/90 text-sm mt-2 font-amiri">
+                            رحمهم الله وأسكنهم فسيح جناته
+                        </p>
+                        <p class="text-emerald-200 text-xs mt-3 opacity-80">
+                            🤲 وأسألكم الدعاء 🤲
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div class="text-center mt-6 text-emerald-400 text-xs">
+                    <p>جميع الحقوق محفوظة © <span id="currentYear"></span></p>
+                </div>
+                
+            </div>
+        </footer>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const statusText = document.getElementById('statusText');
+        const soundWave = document.getElementById('soundWave');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeValue = document.getElementById('volumeValue');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const muteIcon = document.getElementById('muteIcon');
+        
+        // State
+        let isPlaying = false;
+        let isMuted = false;
+        let previousVolume = 80;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Set initial volume
+            audioPlayer.volume = 0.8;
+            
+            // Audio event listeners
+            audioPlayer.addEventListener('playing', handlePlaying);
+            audioPlayer.addEventListener('pause', handlePause);
+            audioPlayer.addEventListener('waiting', handleBuffering);
+            audioPlayer.addEventListener('error', handleError);
+            audioPlayer.addEventListener('ended', handleEnded);
+        });
+        
+        // Toggle Play/Pause
+        function togglePlay() {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+        
+        // Play Audio
+        function playAudio() {
+            statusText.textContent = 'جارٍ الاتصال بالبث...';
+            audioPlayer.play()
+                .then(() => {
+                    isPlaying = true;
+                    updatePlayButton();
+                })
+                .catch(error => {
+                    console.error('Error playing audio:', error);
+                    statusText.textContent = 'حدث خطأ في التشغيل. حاول مرة أخرى.';
+                });
+        }
+        
+        // Pause Audio
+        function pauseAudio() {
+            audioPlayer.pause();
+            isPlaying = false;
+            updatePlayButton();
+        }
+        
+        // Update Play Button UI
+        function updatePlayButton() {
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                soundWave.classList.remove('opacity-0');
+                soundWave.classList.add('opacity-100');
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                soundWave.classList.add('opacity-0');
+                soundWave.classList.remove('opacity-100');
+            }
+        }
+        
+        // Handle Playing State
+        function handlePlaying() {
+            statusText.textContent = 'يتم الآن بث القرآن الكريم';
+            statusText.classList.add('text-emerald-600');
+            statusText.classList.remove('text-gray-600', 'text-amber-600');
+        }
+        
+        // Handle Pause State
+        function handlePause() {
+            statusText.textContent = 'تم إيقاف البث مؤقتًا';
+            statusText.classList.remove('text-emerald-600');
+            statusText.classList.add('text-gray-600');
+        }
+        
+        // Handle Buffering
+        function handleBuffering() {
+            statusText.textContent = 'جارٍ التحميل...';
+            statusText.classList.add('text-amber-600');
+            statusText.classList.remove('text-emerald-600', 'text-gray-600');
+        }
+        
+        // Handle Error
+        function handleError(e) {
+            console.error('Audio error:', e);
+            statusText.textContent = 'حدث خطأ في الاتصال. يرجى المحاولة لاحقًا.';
+            statusText.classList.remove('text-emerald-600');
+            statusText.classList.add('text-red-600');
+            isPlaying = false;
+            updatePlayButton();
+        }
+        
+        // Handle Stream Ended
+        function handleEnded() {
+            // Auto-reconnect for live stream
+            setTimeout(() => {
+                if (isPlaying) {
+                    audioPlayer.load();
+                    audioPlayer.play();
+                }
+            }, 2000);
+        }
+        
+        // Change Volume
+        function changeVolume(value) {
+            const volume = value / 100;
+            audioPlayer.volume = volume;
+            volumeValue.textContent = value + '%';
+            previousVolume = value;
+            
+            // Update mute state
+            if (volume === 0) {
+                isMuted = true;
+                updateMuteButton();
+            } else if (isMuted) {
+                isMuted = false;
+                updateMuteButton();
+            }
+        }
+        
+        // Toggle Mute
+        function toggleMute() {
+            if (isMuted) {
+                // Unmute
+                isMuted = false;
+                audioPlayer.volume = previousVolume / 100;
+                volumeSlider.value = previousVolume;
+                volumeValue.textContent = previousVolume + '%';
+            } else {
+                // Mute
+                isMuted = true;
+                previousVolume = volumeSlider.value;
+                audioPlayer.volume = 0;
+                volumeSlider.value = 0;
+                volumeValue.textContent = '0%';
+            }
+            updateMuteButton();
+        }
+        
+        // Update Mute Button UI
+        function updateMuteButton() {
+            if (isMuted) {
+                volumeIcon.classList.add('hidden');
+                muteIcon.classList.remove('hidden');
+            } else {
+                volumeIcon.classList.remove('hidden');
+                muteIcon.classList.add('hidden');
+            }
+        }
+        
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            // Space bar to toggle play
+            if (e.code === 'Space' && e.target === document.body) {
+                e.preventDefault();
+                togglePlay();
+            }
+            // M to toggle mute
+            if (e.code === 'KeyM') {
+                toggleMute();
+            }
+            // Arrow keys for volume
+            if (e.code === 'ArrowUp') {
+                e.preventDefault();
+                const newVolume = Math.min(100, parseInt(volumeSlider.value) + 5);
+                volumeSlider.value = newVolume;
+                changeVolume(newVolume);
+            }
+            if (e.code === 'ArrowDown') {
+                e.preventDefault();
+                const newVolume = Math.max(0, parseInt(volumeSlider.value) - 5);
+                volumeSlider.value = newVolume;
+                changeVolume(newVolume);
+            }
+        });
+    </script>
+    
+</body>
+</html>
