@@ -133,6 +133,50 @@
         .transition-smooth {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Image Popup Styles */
+        .image-popup-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        .image-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .image-popup-content {
+            transform: scale(0.5) translateY(50px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        }
+        
+        .image-popup-overlay.active .image-popup-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Clickable image cursor */
+        .clickable-image {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .clickable-image:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+        }
+        
+        /* Close button animation */
+        .close-btn {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background-color: #dc2626;
+        }
     </style>
 </head>
 <body class="islamic-pattern min-h-screen">
@@ -296,7 +340,11 @@
                     <!-- Developer Photo -->
                     <div class="flex justify-center mb-4">
                         <div class="relative">
-                            <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-amber-400/70 shadow-lg shadow-emerald-900/50">
+                            <div 
+                                class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-amber-400/70 shadow-lg shadow-emerald-900/50 clickable-image"
+                                onclick="openImagePopup()"
+                                title="اضغط لتكبير الصورة"
+                            >
                                 <img 
                                     src="https://i.postimg.cc/LsFR2pFz/real.jpg" 
                                     alt="د/ أحمد علوي" 
@@ -305,7 +353,7 @@
                                 >
                             </div>
                             <!-- Decorative Ring -->
-                            <div class="absolute inset-0 rounded-full border-2 border-amber-300/30 scale-110"></div>
+                            <div class="absolute inset-0 rounded-full border-2 border-amber-300/30 scale-110 pointer-events-none"></div>
                         </div>
                     </div>
                     
@@ -343,6 +391,42 @@
             </div>
         </footer>
         
+    </div>
+    
+    <!-- Image Popup Modal -->
+    <div id="imagePopup" class="image-popup-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onclick="closeImagePopup(event)">
+        <div class="image-popup-content relative max-w-sm w-full">
+            <!-- Close Button -->
+            <button 
+                onclick="closeImagePopup(event, true)"
+                class="close-btn absolute -top-3 -right-3 w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                aria-label="إغلاق"
+            >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <!-- Image Container -->
+            <div class="bg-gradient-to-br from-emerald-800 to-emerald-900 p-3 rounded-3xl shadow-2xl">
+                <div class="bg-gradient-to-br from-amber-400 to-amber-500 p-1 rounded-2xl">
+                    <img 
+                        src="https://i.postimg.cc/LsFR2pFz/real.jpg" 
+                        alt="د/ أحمد علوي" 
+                        class="w-full aspect-square object-cover rounded-2xl"
+                    >
+                </div>
+                
+                <!-- Name Badge -->
+                <div class="text-center mt-4 pb-2">
+                    <h3 class="text-amber-300 font-bold text-xl font-amiri">د/ أحمد علوي</h3>
+                    <p class="text-emerald-200 text-sm mt-1">صيدلي ومبرمج</p>
+                    <div class="flex justify-center mt-3">
+                        <span class="text-amber-400/70 text-lg">﷽</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- JavaScript -->
@@ -538,7 +622,29 @@
                 volumeSlider.value = newVolume;
                 changeVolume(newVolume);
             }
+            // Escape to close popup
+            if (e.code === 'Escape') {
+                closeImagePopup(null, true);
+            }
         });
+        
+        // ========== Image Popup Functions ==========
+        const imagePopup = document.getElementById('imagePopup');
+        
+        // Open Image Popup
+        function openImagePopup() {
+            imagePopup.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        // Close Image Popup
+        function closeImagePopup(event, forceClose = false) {
+            // Close if clicked on overlay (not content) or force close
+            if (forceClose || (event && event.target === imagePopup)) {
+                imagePopup.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        }
     </script>
     
 </body>
